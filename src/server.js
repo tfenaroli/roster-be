@@ -2,6 +2,12 @@ import express from 'express';
 import cors from 'cors';
 import path from 'path';
 import morgan from 'morgan';
+import dotenv from 'dotenv';
+import mongoose from 'mongoose';
+import { getUsers, postUser, deleteUser } from './services/userService'
+
+// dotenv
+dotenv.config();
 
 // initialize
 const app = express();
@@ -27,22 +33,34 @@ app.use(express.json()); // To parse the incoming requests with JSON payloads
 
 // additional init stuff should go before hitting the routing
 
+const mongoURI = process.env.mongoURI || 'mongodb://localhost/project'
+
+mongoose.connect(mongoURI).then(() => {
+	console.log("connected to database: ", mongoURI);
+}).catch((err) => {
+	console.log("error: could not connect to database: ", err);
+})
+
 // default index route
-app.get('/', (req, res) => {
-  res.send('hi');
-});
+app.get('/', getUsers);
+
+// create route
+app.post("/", postUser);
+
+// delete route
+app.delete("/:id", deleteUser);
 
 // START THE SERVER
 // =============================================================================
 async function startServer() {
-  try {
-    const port = process.env.PORT || 9090;
-    app.listen(port);
+	try {
+		const port = process.env.PORT || 9090;
+		app.listen(port);
 
-    console.log(`Listening on port ${port}`);
-  } catch (error) {
-    console.error(error);
-  }
+		console.log(`Listening on port ${port}`);
+	} catch (error) {
+		console.error(error);
+	}
 }
 
 startServer();
