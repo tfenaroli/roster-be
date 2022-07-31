@@ -4,7 +4,7 @@ import path from 'path';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import { getUsers, postUser, deleteUser } from './services/userService'
+import { getUsers, postUser, deleteUser } from './services/userService.js'
 
 // dotenv
 dotenv.config();
