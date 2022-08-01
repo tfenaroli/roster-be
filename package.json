@@ -6,7 +6,7 @@
     "main": "src/server.js",
     "scripts": {
         "test": "eslint src",
-        "start": "nodemon src/server.js --exec babel-node",
+        "start": "node dist/server.js",
         "babel-start": "babel-node src/server.js",
         "build": "babel src -d dist",
         "prod": "node dist/server.js"
