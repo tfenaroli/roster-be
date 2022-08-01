@@ -4,7 +4,7 @@ import path from 'path';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import { getUsers, postUser, deleteUser } from './services/userService.js'
+import { getUsers, postUser, deleteUser, editUser } from './services/userService.js'
 
 // dotenv
 dotenv.config();
@@ -49,6 +49,9 @@ app.post("/", postUser);
 
 // delete route
 app.delete("/:id", deleteUser);
+
+// edit route
+app.put("/:id", editUser);
 
 // START THE SERVER
 // =============================================================================

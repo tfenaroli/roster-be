@@ -36,3 +36,14 @@ export const deleteUser = async (req, res) => {
 		console.log("error: ", err);
 	}
 }
+
+export const editUser = async (req, res) => {
+	try {
+		const id = req.params.id;
+		await User.findByIdAndUpdate(id, { $set: req.body });
+
+		res.send("user updated");
+	} catch (err) {
+		console.log("error: ", err);
+	}
+}
